@@ -802,7 +802,7 @@ bool publicElement(linkList& L1, linkList& L2, linkList& publicLink)
 //·µ»Ø£ºÉ¾³ý³É¹¦·µ»Øtrue£¬É¾³ýÊ§°Ü·µ»Øfalse
 bool deleteRepetition(linkList& L)
 {
-	linkList p1 = nullptr, p2 = nullptr, deleteP;
+	linkList p1 = nullptr, p2 = nullptr;
 
 	if (L == nullptr)
 	{
@@ -823,10 +823,9 @@ bool deleteRepetition(linkList& L)
 			}
 			else
 			{
-				deleteP = p2;
-				p2 = p2->next;
-				p1->next = p2;
-				delete(deleteP);
+				p1->next = p2->next;
+				delete(p2);
+				p2 = p1->next;
 			}
 		}
 
