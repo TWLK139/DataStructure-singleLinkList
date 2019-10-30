@@ -36,29 +36,24 @@ typedef struct sList {											//
 
 
 
-//**********************函数声明********************************************************************************//
-bool initialList(linkList& L);											//初始化链表							//
-bool creatLinkListToEnd(linkList& L);									//尾插法创建单链表						//
-bool creatLinkListToBegin(linkList& L);									//头插法创建单链表						//
-bool creatLinkListArray(linkList& L, int arrayNum);						//指定数组头插法创建链表				//
-bool showLinkList(linkList& L);											//打印链表								//
-bool destroyLinkList(linkList& L);										//销毁链表								//
-elementType linkListLen(linkList& L);									//求链表长度							//
-linkList getElement(linkList& L);										//按序号查找元素						//
-linkList getElement(linkList& L, int i);								//按序号查找元素（重载，便于实验）		//
-bool addElement(linkList& L, int i, elementType x);						//在第i个结点前插入值为x的结点(重载)	//
-bool addElement(linkList& L);											//在第i个结点前插入值为x的结点			//
-linkList localElement(linkList& L);										//查找元素值为x的结点					//
-linkList localElement(linkList& L, elementType x);						//查找元素值为x的结点(重载)				//
-bool deleteElement(linkList& L);										//删除第i个元素结点						//
-bool deleteElement(linkList& L, int i);									//删除第i个元素结点(重载)				//
-bool insertElement(linkList& L);										//按值插入元素							//
-bool insertElement(linkList& L, elementType x);							//按值插入元素(重载)					//
-bool separateElement(linkList& L, linkList& odd, linkList& even);		//删除第i个元素结点						//
-bool publicElement(linkList& L1, linkList& L2, linkList& publicLink);	//获取两链表中的公共元素				//
-bool deleteRepetition(linkList& L);										//删除链表中的重复元素					//
-bool unionSetLinkList(linkList& L1, linkList& L2);						//将两链表合并成一个集合				//
-//**************************************************************************************************************//
+//**********************函数声明************************************************************************//
+bool initialList(linkList& L);											//初始化链表					//
+bool creatLinkListToEnd(linkList& L);									//尾插法创建单链表				//
+bool creatLinkListToBegin(linkList& L);									//头插法创建单链表				//
+bool creatLinkListArray(linkList& L, int arrayNum);						//指定数组头插法创建链表		//
+bool showLinkList(linkList& L);											//打印链表						//
+bool destroyLinkList(linkList& L);										//销毁链表						//
+elementType linkListLen(linkList& L);									//求链表长度					//
+linkList getElement(linkList& L, int i);								//按序号查找元素				//
+bool addElement(linkList& L, int i, elementType x);						//在第i个结点前插入值为x的结点	//
+linkList localElement(linkList& L, elementType x);						//查找元素值为x的结点			//
+bool deleteElement(linkList& L, int i);									//删除第i个元素结点				//
+bool insertElement(linkList& L, elementType x);							//按值插入元素					//
+bool separateElement(linkList& L, linkList& odd, linkList& even);		//删除第i个元素结点				//
+bool publicElement(linkList& L1, linkList& L2, linkList& publicLink);	//获取两链表中的公共元素		//
+bool deleteRepetition(linkList& L);										//删除链表中的重复元素			//
+bool unionSetLinkList(linkList& L1, linkList& L2);						//将两链表合并成一个集合		//
+//******************************************************************************************************//
 
 
 //**********************函数定义****************************************
@@ -294,52 +289,8 @@ elementType linkListLen(linkList& L)
 
 //****************求单链表中第i个元素******************
 //实验二.5，按序号查找元素。
-//输入：链表头指针、函数内输入元素序号
-//输出：节点指针类型
-linkList getElement(linkList& L)
-{
-	int nowNum = 0, i = NULL;
-	linkList nowNode = L;
-
-	cout << "请输入序号：";
-	cin >> i;
-
-	if (L == nullptr)
-	{
-		cout << "未创建链表！" << endl;
-
-		return nullptr;
-	}
-	else if (i <= 0)
-	{
-		cout << "序号越下界！" << endl;
-
-		return nullptr;
-	}
-	else
-	{
-		while (nowNum < i)
-		{
-			nowNode = nowNode->next;
-			nowNum++;
-		}
-		if (nowNode == nullptr)
-		{
-			cout << "序号越上界！" << endl;
-
-			return nullptr;
-		}
-
-		return nowNode;
-	}
-}
-
-
-//****************求单链表中第i个元素******************
-//实验二.5，按序号查找元素。（重载函数）
 //输入：链表头指针、元素序号
 //输出：节点指针类型
-//备注：重载函数，便于实验
 linkList getElement(linkList& L, int i)
 {
 	int nowNum = 0;
@@ -378,63 +329,8 @@ linkList getElement(linkList& L, int i)
 
 //****************在第i个结点前插入值为x的结点******************
 //实验二.6，按序号插入元素。
-//输入：链表；函数内输入元素序号、插入值
-//返回：插入成功返回true，插入失败返回false
-bool addElement(linkList& L)
-{
-	int i = NULL;
-	elementType x = NULL;
-	linkList nowNode = L, newNode = nullptr;
-	int nowNum = 0;
-
-	cout << "请输入要插入的位置：" << "\t";
-	cin >> i;
-	cout << "请输入要插入的元素：" << "\t";
-	cin >> x;
-
-	if (L == nullptr)
-	{
-		cout << "当前链表未创建！" << endl;
-
-		return false;
-	}
-	else if (i <= 0)
-	{
-		cout << "序号越下界！" << endl;
-
-		return false;
-	}
-	else
-	{
-		while (nowNum + 1 < i && nowNode->next != nullptr)
-		{
-			nowNode = nowNode->next;
-			nowNum++;
-		}
-		if (nowNum + 1 == i)
-		{
-			newNode = new node;
-			newNode->data = x;
-			newNode->next = nowNode->next;
-			nowNode->next = newNode;
-
-			return true;
-		}
-		else
-		{
-			cout << "序号越上界！" << endl;
-
-			return false;
-		}
-	}
-}
-
-
-//****************在第i个结点前插入值为x的结点******************
-//实验二.6，按序号插入元素。(重载函数)
 //输入：链表、元素序号、插入值
 //返回：插入成功返回true，插入失败返回false
-//备注：重载函数，便于实验
 bool addElement(linkList& L, int i, elementType x)
 {
 	linkList nowNode = L, newNode = nullptr;
@@ -482,38 +378,6 @@ bool addElement(linkList& L, int i, elementType x)
 //实验二.7，按值查找元素。
 //输入：链表；函数内输入查找值
 //返回：插入成功返回结点指针，插入失败返回nullptr
-linkList localElement(linkList& L)
-{
-	elementType x = NULL;
-	linkList nowNode = L;
-
-
-	cout << "请输入要查找的元素：" << "\t";
-	cin >> x;
-
-	if (L == nullptr)
-	{
-		cout << "当前链表未创建！" << endl;
-
-		return nullptr;
-	}
-	else
-	{
-		while (nowNode->next != nullptr && nowNode->next->data != x)
-		{
-			nowNode = nowNode->next;
-		}
-
-		return nowNode->next;
-	}
-}
-
-
-//****************查找元素值为x的结点******************
-//实验二.7，按值查找元素。(重载函数)
-//输入：链表；函数内输入查找值
-//返回：插入成功返回结点指针，插入失败返回nullptr
-//备注：重载函数，便于实验
 linkList localElement(linkList& L, elementType x)
 {
 	linkList nowNode = L;
@@ -538,59 +402,8 @@ linkList localElement(linkList& L, elementType x)
 
 //****************删除单链表中第i个元素结点******************
 //实验二.8，按序号删除元素。
-//输入：链表；函数内输入删除序号
-//返回：删除成功返回true，删除失败返回false
-bool deleteElement(linkList& L)
-{
-	int i = NULL, nowNum = 0;
-	linkList nowNode = L, deleteNode = nullptr;
-
-
-	cout << "请输入要删除的序号：" << "\t";
-	cin >> i;
-
-	if (L == nullptr)
-	{
-		cout << "当前链表未创建！" << endl;
-
-		return false;
-	}
-	else if (i <= 0)
-	{
-		cout << "序号越下界！" << endl;
-
-		return false;
-	}
-	else
-	{
-		while (nowNode->next != nullptr && nowNum + 1 < i)
-		{
-			nowNum++;
-			nowNode = nowNode->next;
-		}
-		if (nowNode->next != nullptr && nowNum + 1 == i)
-		{
-			deleteNode = nowNode->next;
-			nowNode->next = deleteNode->next;
-			delete(deleteNode);
-
-			return true;
-		}
-		else
-		{
-			cout << "序号越上界！" << endl;
-
-			return false;
-		}
-	}
-}
-
-
-//****************删除单链表中第i个元素结点******************
-//实验二.8，按序号删除元素。(重载函数)
 //输入：链表、删除序号
 //返回：删除成功返回true，删除失败返回false
-//备注：重载函数，便于实验
 bool deleteElement(linkList& L, int i)
 {
 	int nowNum = 0;
@@ -636,43 +449,8 @@ bool deleteElement(linkList& L, int i)
 
 //****************在一个递增有序的单链表L中插入一个值为x的元素******************
 //实验二.9，按值插入元素。
-//输入：链表；函数内输入插入值
-//返回：插入成功返回true，插入失败返回false
-bool insertElement(linkList& L)
-{
-	elementType x = NULL;
-	linkList nowNode = L, newNode = nullptr;
-
-	cout << "请输入要插入的元素：" << "\t";
-	cin >> x;
-
-	if (L == nullptr)
-	{
-		cout << "当前链表未创建！" << endl;
-
-		return false;
-	}
-	else
-	{
-		while (nowNode->next != nullptr && nowNode->next->data < x)
-		{
-			nowNode = nowNode->next;
-		}
-		newNode = new node;
-		newNode->data = x;
-		newNode->next = nowNode->next;
-		nowNode->next = newNode;
-
-		return true;
-	}
-}
-
-
-//****************在一个递增有序的单链表L中插入一个值为x的元素******************
-//实验二.9，按值插入元素。(重载函数)
 //输入：链表、插入值
 //返回：删除成功返回true，删除失败返回false
-//备注：重载函数，便于实验
 bool insertElement(linkList& L, elementType x)
 {
 	linkList nowNode = L, newNode = nullptr;
