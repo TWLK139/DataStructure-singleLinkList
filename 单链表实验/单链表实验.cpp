@@ -28,6 +28,9 @@ int main(void)
 		cout << "*12，删除链表中的重复元素。\t\t\t\t\t*" << endl;
 		cout << "*13，将两链表合并成一个集合。\t\t\t\t\t*" << endl;
 		cout << "*\t\t\t\t\t\t\t\t*" << endl;
+		cout << "*14，集合交运算，结果存新链表中。\t\t\t\t*" << endl;
+		//cout << "*15，集合并运算，结果存新链表中。\t\t\t\t*" << endl;
+		cout << "*\t\t\t\t\t\t\t\t*" << endl;
 		cout << "*0，退出程序。\t\t\t\t\t\t\t*" << endl;
 		cout << "*****************************************************************" << endl;
 		cout << "请输入菜单编号：\t";
@@ -537,6 +540,21 @@ int main(void)
 			else cout << "链表销毁失败！" << endl;
 			cout << endl;
 			//********************************************************************
+			break;
+		case 14:
+			system("cls");
+			creatLinkListArray(L_10[0], 2);
+			creatLinkListArray(L_10[1], 3);
+			cout << "第一组数据：" << endl;
+			showLinkList(L_10[0]);
+			cout << "第二组数据：" << endl;
+			showLinkList(L_10[1]);
+			if (setComputeNewInter(L_10[0], L_10[1], L_10[2]))
+			{
+				cout << "求交集成功！结果为：";
+				showLinkList(L_10[2]);
+			}
+			else cout << "求交集失败！" << endl;
 			break;
 		case 0:
 			if (destroyLinkList(L_1))cout << "当前链表销毁成功！" << endl;

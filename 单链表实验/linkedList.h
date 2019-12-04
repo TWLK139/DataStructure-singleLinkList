@@ -53,6 +53,8 @@ bool separateElement(linkList& L, linkList& odd, linkList& even);		//删除第i个元
 bool publicElement(linkList& L1, linkList& L2, linkList& publicLink);	//获取两链表中的公共元素		//
 bool deleteRepetition(linkList& L);										//删除链表中的重复元素			//
 bool unionSetLinkList(linkList& L1, linkList& L2);						//将两链表合并成一个集合		//
+bool setComputeNewInter(linkList& L1, linkList& L2, linkList& interSet);//集合交运算，结果存在新链表中	//
+bool setComputeNewunion(linkList& L1, linkList& L2, linkList& interSet);//集合交运算，结果存在新链表中	//
 //******************************************************************************************************//
 
 
@@ -667,6 +669,56 @@ bool unionSetLinkList(linkList& L1, linkList& L2)
 		return true;
 	}
 }
+
+
+//****************递增有序链表的交集运算，结果存在新链表中******************
+bool setComputeNewInter(linkList& L1, linkList& L2, linkList& interSet)
+{
+	linkList node_1 = L1, node_2 = L2, newNode = nullptr;
+
+	if (L1 == nullptr || L2 == nullptr)
+	{
+		cout << "当前存在链表未创建！" << endl;
+
+		return false;
+	}
+	else if (initialList(interSet))
+	{
+		while (node_1->next != nullptr && node_2->next != nullptr)
+		{
+			if (node_1->next->data < node_2->next->data)
+			{
+				node_1 = node_1->next;
+			}
+			else if (node_1->next->data == node_2->next->data)
+			{
+				newNode = new node;
+				newNode->data = node_1->next->data;
+
+				newNode->next = interSet->next;
+				interSet->next = newNode;
+
+				node_1 = node_1->next;
+				node_2 = node_2->next;
+			}
+			else
+			{
+				node_2 = node_2->next;
+			}
+		}
+
+		return true;
+	}
+	else
+	{
+		cout << "传入存放结果的链表指针已被占用，公共元素获取失败！" << endl;
+
+		return false;
+	}
+}
+
+
+
 
 
 #endif // !LINKEDLIST_H
